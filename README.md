@@ -1,2 +1,2 @@
 # distflow
-OPF Distflow use gams
+OPF Distflow SOCP use gams
