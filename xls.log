@@ -1,0 +1,30 @@
+
+--- Job xls.gms Start 04/21/23 11:45:58 24.4.6 r52609 WEX-WEI x86 64bit/MS Windows
+GAMS 24.4.6   Copyright (C) 1987-2015 GAMS Development. All rights reserved
+Licensee: Small MUD - 5 User License                     S181221:0542AO-WIN
+          Hohai University, College of Energy and Electrical EngineeDC11740
+          License for teaching and research at degree granting institutions
+          License_Admin:_Guoqiang_Sun,_zanghaixiang@hhu.edu.cn_____________
+--- Starting compilation
+--- xls.gms(4) 2 Mb
+--- call =xls2gms r=busi!              i=rawdata.xls O=.\formatdata\busi.inc
+--- xls.gms(5) 2 Mb
+--- call =xls2gms r=bus!B1:M1 s=","   i=rawdata.xls O=.\formatdata\busitem.inc
+--- xls.gms(6) 2 Mb
+--- call =xls2gms r=bchi!              i=rawdata.xls O=.\formatdata\bchi.inc
+--- xls.gms(7) 2 Mb
+--- call =xls2gms r=bch!B1:N1 s=","   i=rawdata.xls O=.\formatdata\bchitem.inc
+--- xls.gms(8) 2 Mb
+--- call =xls2gms r=geni!              i=rawdata.xls O=.\formatdata\geni.inc
+--- xls.gms(9) 2 Mb
+--- call =xls2gms r=gen!B1:V1 s=","   i=rawdata.xls O=.\formatdata\genitem.inc
+--- xls.gms(11) 2 Mb
+--- call =xls2gms r=gen!               i=rawdata.xls O=.\formatdata\Dgen.inc
+--- xls.gms(12) 2 Mb
+--- call =xls2gms r=bus!               i=rawdata.xls O=.\formatdata\Dbus.inc
+--- xls.gms(13) 2 Mb
+--- call =xls2gms r=bch!            i=rawdata.xls O=.\formatdata\Dbch.inc
+--- xls.gms(24) 2 Mb
+--- Starting execution - empty program
+*** Status: Normal completion
+--- Job xls.gms Stop 04/21/23 11:46:10 elapsed 0:00:11.664

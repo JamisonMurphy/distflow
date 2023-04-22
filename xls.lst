@@ -1,0 +1,66 @@
+GAMS 24.4.6  r52609 Released Jun 26, 2015 WEX-WEI x86 64bit/MS Windows 04/21/23 11:45:58 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   2  /*==========================================Excel转化为inc文件============
+      =======================*/
+   3   
+  10   
+  14   
+  15   
+  16  /*===============================================语句说明=================
+      =====================*/
+  17  /*call=xls2gms:调用xls2gms工具,详见www.gams.com/25.1/docs/T_XLS2GMS.html*/
+  18  /*r=          :读入表格范围(这里读入的是整个表格)                       */
+  19  /*i=          :表格存放路径                                             */
+  20  /*s=          :元素分隔符(必须符合gams语法),如果是一行的集合要加逗号，一列
+      不用                             */
+  21  /*o=          :inc文件输出路径                                          */
+  22   
+  23   
+  24   
+GAMS 24.4.6  r52609 Released Jun 26, 2015 WEX-WEI x86 64bit/MS Windows 04/21/23 11:45:58 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Include File Summary
+
+
+   SEQ   GLOBAL TYPE      PARENT   LOCAL  FILENAME
+
+     1        1 INPUT          0       0  C:\Users\chengzi\Documents\HoHai\windR
+                                          \project3like\distflow2\xls.gms
+     2        4 CALL           1       4  =xls2gms r=busi!              i=rawdat
+                                          a.xls O=.\formatdata\busi.inc
+     3        5 CALL           1       5  =xls2gms r=bus!B1:M1 s=","   i=rawdata
+                                          .xls O=.\formatdata\busitem.inc
+     4        6 CALL           1       6  =xls2gms r=bchi!              i=rawdat
+                                          a.xls O=.\formatdata\bchi.inc
+     5        7 CALL           1       7  =xls2gms r=bch!B1:N1 s=","   i=rawdata
+                                          .xls O=.\formatdata\bchitem.inc
+     6        8 CALL           1       8  =xls2gms r=geni!              i=rawdat
+                                          a.xls O=.\formatdata\geni.inc
+     7        9 CALL           1       9  =xls2gms r=gen!B1:V1 s=","   i=rawdata
+                                          .xls O=.\formatdata\genitem.inc
+     8       11 CALL           1      11  =xls2gms r=gen!               i=rawdat
+                                          a.xls O=.\formatdata\Dgen.inc
+     9       12 CALL           1      12  =xls2gms r=bus!               i=rawdat
+                                          a.xls O=.\formatdata\Dbus.inc
+    10       13 CALL           1      13  =xls2gms r=bch!            i=rawdata.x
+                                          ls O=.\formatdata\Dbch.inc
+
+
+COMPILATION TIME     =       11.672 SECONDS      2 MB  24.4.6 r52609 WEX-WEI
+
+
+EXECUTION TIME       =        0.000 SECONDS      2 MB  24.4.6 r52609 WEX-WEI
+
+
+USER: Small MUD - 5 User License                     S181221:0542AO-WIN
+      Hohai University, College of Energy and Electrical EngineeDC11740
+      License for teaching and research at degree granting institutions
+
+
+**** FILE SUMMARY
+
+Input      C:\Users\chengzi\Documents\HoHai\windR\project3like\distflow2\xls.gms
+Output     C:\Users\chengzi\Documents\HoHai\windR\project3like\distflow2\xls.lst

@@ -1,0 +1,37 @@
+B 2 C o m p i l a t i o n
+B 496 Include File Summary
+B 535 E x e c u t i o n
+I 536 G0
+I 613 B0
+I 689 Gij
+I 765 Bij
+B 843 Equation Listing    SOLVE OPF41 Using QCP From line 377
+D 844 e1
+D 862 e3
+D 879 e5
+D 892 e6
+D 905 e99
+B 912 Column Listing      SOLVE OPF41 Using QCP From line 377
+E 913 Pg
+E 922 Qg
+E 929 Pij
+E 954 Qij
+E 979 cost
+E 986 U
+E 1011 lij
+B 1038 Model Statistics    SOLVE OPF41 Using QCP From line 377
+B 1056 Solution Report     SOLVE OPF41 Using QCP From line 377
+F 1100 e1
+F 1142 e3
+F 1184 e5
+F 1222 e6
+F 1258 e99
+G 1259 Pg
+G 1265 Qg
+G 1271 Pij
+G 1313 Qij
+G 1355 cost
+G 1359 U
+G 1397 lij
+B 1447 E x e c u t i o n
+I 1448 voltage

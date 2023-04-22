@@ -1,0 +1,1476 @@
+GAMS 24.4.6  r52609 Released Jun 26, 2015 WEX-WEI x86 64bit/MS Windows 04/21/23 19:16:42 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  ***********ieee case33mg.m distflow test
+   3  /*========数据导入==============*/
+   4  /*========导入集合元素==========*/
+   5  set bus     '节点编号           '/
+INCLUDE    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflow2\formatd
+           ata\busi.inc
+   7  * -----------------------------------------------------
+   8  * XLS2GMS 2.8      24.4.6 r52609 Released Jun 26, 2015 VS8 x86 32bit/MS Wi
+      ndows
+   9  * Erwin Kalvelagen, GAMS Development Corp.
+  10  * -----------------------------------------------------
+  11  * Application: Microsoft Excel
+  12  * Version:     16.0
+  13  * Workbook:    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflo
+      w2\rawdata.xls
+  14  * Sheet:       busi
+  15  * Range:       $A$1:$A$33
+  16  * -----------------------------------------------------
+  17  bus1
+  18  bus2
+  19  bus3
+  20  bus4
+  21  bus5
+  22  bus6
+  23  bus7
+  24  bus8
+  25  bus9
+  26  bus10
+  27  bus11
+  28  bus12
+  29  bus13
+  30  bus14
+  31  bus15
+  32  bus16
+  33  bus17
+  34  bus18
+  35  bus19
+  36  bus20
+  37  bus21
+  38  bus22
+  39  bus23
+  40  bus24
+  41  bus25
+  42  bus26
+  43  bus27
+  44  bus28
+  45  bus29
+  46  bus30
+  47  bus31
+  48  bus32
+  49  bus33
+  50  * -----------------------------------------------------
+  51  /;
+  52  set busitem '节点数据组成       '/
+INCLUDE    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflow2\formatd
+           ata\busitem.inc
+  54  * -----------------------------------------------------
+  55  * XLS2GMS 2.8      24.4.6 r52609 Released Jun 26, 2015 VS8 x86 32bit/MS Wi
+      ndows
+  56  * Erwin Kalvelagen, GAMS Development Corp.
+  57  * -----------------------------------------------------
+  58  * Application: Microsoft Excel
+  59  * Version:     16.0
+  60  * Workbook:    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflo
+      w2\rawdata.xls
+  61  * Sheet:       bus
+  62  * Range:       $B$1:$M$1
+  63  * -----------------------------------------------------
+  64  type,Pd  ,Qd  ,Gs  ,Bs  ,area,Vm  ,Va  ,baseKV,zone,Vmax,Vmin
+  65  * -----------------------------------------------------
+  66  /;
+  67  set bch     '支路编号           '/
+INCLUDE    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflow2\formatd
+           ata\bchi.inc
+  69  * -----------------------------------------------------
+  70  * XLS2GMS 2.8      24.4.6 r52609 Released Jun 26, 2015 VS8 x86 32bit/MS Wi
+      ndows
+  71  * Erwin Kalvelagen, GAMS Development Corp.
+  72  * -----------------------------------------------------
+  73  * Application: Microsoft Excel
+  74  * Version:     16.0
+  75  * Workbook:    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflo
+      w2\rawdata.xls
+  76  * Sheet:       bchi
+  77  * Range:       $A$1:$A$37
+  78  * -----------------------------------------------------
+  79  bch1
+  80  bch2
+  81  bch3
+  82  bch4
+  83  bch5
+  84  bch6
+  85  bch7
+  86  bch8
+  87  bch9
+  88  bch10
+  89  bch11
+  90  bch12
+  91  bch13
+  92  bch14
+  93  bch15
+  94  bch16
+  95  bch17
+  96  bch18
+  97  bch19
+  98  bch20
+  99  bch21
+ 100  bch22
+ 101  bch23
+ 102  bch24
+ 103  bch25
+ 104  bch26
+ 105  bch27
+ 106  bch28
+ 107  bch29
+ 108  bch30
+ 109  bch31
+ 110  bch32
+ 111  bch33
+ 112  bch34
+ 113  bch35
+ 114  bch36
+ 115  bch37
+ 116  * -----------------------------------------------------
+ 117  /;
+ 118  set bchitem '支路数据组成       '/
+INCLUDE    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflow2\formatd
+           ata\bchitem.inc
+ 120  * -----------------------------------------------------
+ 121  * XLS2GMS 2.8      24.4.6 r52609 Released Jun 26, 2015 VS8 x86 32bit/MS Wi
+      ndows
+ 122  * Erwin Kalvelagen, GAMS Development Corp.
+ 123  * -----------------------------------------------------
+ 124  * Application: Microsoft Excel
+ 125  * Version:     16.0
+ 126  * Workbook:    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflo
+      w2\rawdata.xls
+ 127  * Sheet:       bch
+ 128  * Range:       $B$1:$N$1
+ 129  * -----------------------------------------------------
+ 130  fbus,tbus,r   ,x   ,b   ,rateA,rateB,rateC,ratio,angle,status,angmin,angma
+      x
+ 131  * -----------------------------------------------------
+ 132  /;
+ 133  set gen     '发电机编号         '/
+INCLUDE    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflow2\formatd
+           ata\geni.inc
+ 135  * -----------------------------------------------------
+ 136  * XLS2GMS 2.8      24.4.6 r52609 Released Jun 26, 2015 VS8 x86 32bit/MS Wi
+      ndows
+ 137  * Erwin Kalvelagen, GAMS Development Corp.
+ 138  * -----------------------------------------------------
+ 139  * Application: Microsoft Excel
+ 140  * Version:     16.0
+ 141  * Workbook:    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflo
+      w2\rawdata.xls
+ 142  * Sheet:       geni
+ 143  * Range:       $A$1
+ 144  * -----------------------------------------------------
+ 145  gen1
+ 146  * -----------------------------------------------------
+ 147  /;
+ 148  set genitem '发电机数据组成     '/
+INCLUDE    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflow2\formatd
+           ata\genitem.inc
+ 150  * -----------------------------------------------------
+ 151  * XLS2GMS 2.8      24.4.6 r52609 Released Jun 26, 2015 VS8 x86 32bit/MS Wi
+      ndows
+ 152  * Erwin Kalvelagen, GAMS Development Corp.
+ 153  * -----------------------------------------------------
+ 154  * Application: Microsoft Excel
+ 155  * Version:     16.0
+ 156  * Workbook:    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflo
+      w2\rawdata.xls
+ 157  * Sheet:       gen
+ 158  * Range:       $B$1:$V$1
+ 159  * -----------------------------------------------------
+ 160  bus ,Pg  ,Qg  ,Qmax,Qmin,Vg  ,mBase,status,Pmax,Pmin,Pc1 ,Pc2 ,Qc1min,Qc1m
+      ax,Qc2min,Qc2max,ramp_agc,ramp_10,ramp_30,ramp_q,apf
+ 161  * -----------------------------------------------------
+ 162  /;
+ 163   
+ 164  alias(i,j,bus)
+ 165  /*========导入系统参数==========*/
+ 166  table Dbus(bus,busitem)
+INCLUDE    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflow2\formatd
+           ata\Dbus.inc
+ 168  * -----------------------------------------------------
+ 169  * XLS2GMS 2.8      24.4.6 r52609 Released Jun 26, 2015 VS8 x86 32bit/MS Wi
+      ndows
+ 170  * Erwin Kalvelagen, GAMS Development Corp.
+ 171  * -----------------------------------------------------
+ 172  * Application: Microsoft Excel
+ 173  * Version:     16.0
+ 174  * Workbook:    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflo
+      w2\rawdata.xls
+ 175  * Sheet:       bus
+ 176  * Range:       $A$1:$M$34
+ 177  * -----------------------------------------------------
+ 178        type Pd    Qd    Gs   Bs   area Vm   Va   baseKV zone Vmax Vmin
+ 179  bus1  3    0     0     0    0    1    1    0    12.66  1    1.1  0.9
+ 180  bus2  1    0.1   0.06  0    0    1    1    0    12.66  1    1.1  0.9
+ 181  bus3  1    0.09  0.04  0    0    1    1    0    12.66  1    1.1  0.9
+ 182  bus4  1    0.12  0.08  0    0    1    1    0    12.66  1    1.1  0.9
+ 183  bus5  1    0.06  0.03  0    0    1    1    0    12.66  1    1.1  0.9
+ 184  bus6  1    0.06  0.02  0    0    1    1    0    12.66  1    1.1  0.9
+ 185  bus7  1    0.2   0.1   0    0    1    1    0    12.66  1    1.1  0.9
+ 186  bus8  1    0.2   0.1   0    0    1    1    0    12.66  1    1.1  0.9
+ 187  bus9  1    0.06  0.02  0    0    1    1    0    12.66  1    1.1  0.9
+ 188  bus10 1    0.06  0.02  0    0    1    1    0    12.66  1    1.1  0.9
+ 189  bus11 1    0.045 0.03  0    0    1    1    0    12.66  1    1.1  0.9
+ 190  bus12 1    0.06  0.035 0    0    1    1    0    12.66  1    1.1  0.9
+ 191  bus13 1    0.06  0.035 0    0    1    1    0    12.66  1    1.1  0.9
+ 192  bus14 1    0.12  0.08  0    0    1    1    0    12.66  1    1.1  0.9
+ 193  bus15 1    0.06  0.01  0    0    1    1    0    12.66  1    1.1  0.9
+ 194  bus16 1    0.06  0.02  0    0    1    1    0    12.66  1    1.1  0.9
+ 195  bus17 1    0.06  0.02  0    0    1    1    0    12.66  1    1.1  0.9
+ 196  bus18 1    0.09  0.04  0    0    1    1    0    12.66  1    1.1  0.9
+ 197  bus19 1    0.09  0.04  0    0    1    1    0    12.66  1    1.1  0.9
+ 198  bus20 1    0.09  0.04  0    0    1    1    0    12.66  1    1.1  0.9
+ 199  bus21 1    0.09  0.04  0    0    1    1    0    12.66  1    1.1  0.9
+ 200  bus22 1    0.09  0.04  0    0    1    1    0    12.66  1    1.1  0.9
+ 201  bus23 1    0.09  0.05  0    0    1    1    0    12.66  1    1.1  0.9
+ 202  bus24 1    0.42  0.2   0    0    1    1    0    12.66  1    1.1  0.9
+ 203  bus25 1    0.42  0.2   0    0    1    1    0    12.66  1    1.1  0.9
+ 204  bus26 1    0.06  0.025 0    0    1    1    0    12.66  1    1.1  0.9
+ 205  bus27 1    0.06  0.025 0    0    1    1    0    12.66  1    1.1  0.9
+ 206  bus28 1    0.06  0.02  0    0    1    1    0    12.66  1    1.1  0.9
+ 207  bus29 1    0.12  0.07  0    0    1    1    0    12.66  1    1.1  0.9
+ 208  bus30 1    0.2   0.6   0    0    1    1    0    12.66  1    1.1  0.9
+ 209  bus31 1    0.15  0.07  0    0    1    1    0    12.66  1    1.1  0.9
+ 210  bus32 1    0.21  0.1   0    0    1    1    0    12.66  1    1.1  0.9
+ 211  bus33 1    0.06  0.04  0    0    1    1    0    12.66  1    1.1  0.9
+ 212  * -----------------------------------------------------
+ 213  table Dbch(bch,bchitem)
+INCLUDE    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflow2\formatd
+           ata\Dbch.inc
+ 215  * -----------------------------------------------------
+ 216  * XLS2GMS 2.8      24.4.6 r52609 Released Jun 26, 2015 VS8 x86 32bit/MS Wi
+      ndows
+ 217  * Erwin Kalvelagen, GAMS Development Corp.
+ 218  * -----------------------------------------------------
+ 219  * Application: Microsoft Excel
+ 220  * Version:     16.0
+ 221  * Workbook:    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflo
+      w2\rawdata.xls
+ 222  * Sheet:       bch
+ 223  * Range:       $A$1:$N$38
+ 224  * -----------------------------------------------------
+ 225        fbus tbus r                    x                    b    rateA rateB
+       rateC ratio angle status angmin angmax
+ 226  bch1  1    2    0.000575259116172393 0.000293244885684409 0    0     0    
+       0     0     0     1      -360   360
+ 227  bch2  2    3    0.00307595167324284  0.00156667639990117  0    0     0    
+       0     0     0     1      -360   360
+ 228  bch3  3    4    0.00228356655660625  0.00116299673811859  0    0     0    
+       0     0     0     1      -360   360
+ 229  bch4  4    5    0.00237777927519847  0.00121103898534774  0    0     0    
+       0     0     0     1      -360   360
+ 230  bch5  5    6    0.00510994811437299  0.00441115179103993  0    0     0    
+       0     0     0     1      -360   360
+ 231  bch6  6    7    0.00116798814042811  0.00386084968641515  0    0     0    
+       0     0     0     1      -360   360
+ 232  bch7  7    8    0.0106778573906446   0.00770610124061305  0    0     0    
+       0     0     0     1      -360   360
+ 233  bch8  8    9    0.00642643047350938  0.00461704713630771  0    0     0    
+       0     0     0     1      -360   360
+ 234  bch9  9    10   0.00651378001392601  0.00461704713630771  0    0     0    
+       0     0     0     1      -360   360
+ 235  bch10 10   11   0.00122663711756499  0.00040555143764865  0    0     0    
+       0     0     0     1      -360   360
+ 236  bch11 11   12   0.00233597628085623  0.000772419507398506 0    0     0    
+       0     0     0     1      -360   360
+ 237  bch12 12   13   0.00915922323797259  0.00720633708437217  0    0     0    
+       0     0     0     1      -360   360
+ 238  bch13 13   14   0.00337917936354629  0.00444796338307266  0    0     0    
+       0     0     0     1      -360   360
+ 239  bch14 14   15   0.00368739845615927  0.00328184701851062  0    0     0    
+       0     0     0     1      -360   360
+ 240  bch15 15   16   0.00465635442949519  0.00340039282336176  0    0     0    
+       0     0     0     1      -360   360
+ 241  bch16 16   17   0.00804239697121708  0.0107377542183589   0    0     0    
+       0     0     0     1      -360   360
+ 242  bch17 17   18   0.00456713311321249  0.00358133115708193  0    0     0    
+       0     0     0     1      -360   360
+ 243  bch18 2    19   0.00102323747345198  0.000976443076800212 0    0     0    
+       0     0     0     1      -360   360
+ 244  bch19 19   20   0.00938508419247846  0.00845668336290739  0    0     0    
+       0     0     0     1      -360   360
+ 245  bch20 20   21   0.0025549740571865   0.00298485858109407  0    0     0    
+       0     0     0     1      -360   360
+ 246  bch21 21   22   0.00442300637152505  0.00584805173089354  0    0     0    
+       0     0     0     1      -360   360
+ 247  bch22 3    23   0.00281515090257032  0.00192356166503198  0    0     0    
+       0     0     0     1      -360   360
+ 248  bch23 23   24   0.00560284909243828  0.00442425422210243  0    0     0    
+       0     0     0     1      -360   360
+ 249  bch24 24   25   0.00559037058666447  0.00437434019900721  0    0     0    
+       0     0     0     1      -360   360
+ 250  bch25 6    26   0.00126656833604117  0.000645138748505699 0    0     0    
+       0     0     0     1      -360   360
+ 251  bch26 26   27   0.00177319567045764  0.000902819892734764 0    0     0    
+       0     0     0     1      -360   360
+ 252  bch27 27   28   0.00660736880722955  0.00582559042050069  0    0     0    
+       0     0     0     1      -360   360
+ 253  bch28 28   29   0.00501760717164684  0.00437122057256376  0    0     0    
+       0     0     0     1      -360   360
+ 254  bch29 29   30   0.00316642084010292  0.00161284687126425  0    0     0    
+       0     0     0     1      -360   360
+ 255  bch30 30   31   0.00607952801299761  0.00600840053008693  0    0     0    
+       0     0     0     1      -360   360
+ 256  bch31 31   32   0.00193728802138317  0.00225798561976995  0    0     0    
+       0     0     0     1      -360   360
+ 257  bch32 32   33   0.00212758523443369  0.00330805188063561  0    0     0    
+       0     0     0     1      -360   360
+ 258  bch33 21   8    0.0124785057738046   0.0124785057738046   0    0     0    
+       0     0     0     1      -360   360
+ 259  bch34 9    15   0.0124785057738046   0.0124785057738046   0    0     0    
+       0     0     0     1      -360   360
+ 260  bch35 12   22   0.0124785057738046   0.0124785057738046   0    0     0    
+       0     0     0     1      -360   360
+ 261  bch36 18   33   0.00311962644345116  0.00311962644345116  0    0     0    
+       0     0     0     1      -360   360
+ 262  bch37 25   29   0.00311962644345116  0.00311962644345116  0    0     0    
+       0     0     0     1      -360   360
+ 263  * -----------------------------------------------------
+ 264  table Dgen(gen,genitem)
+INCLUDE    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflow2\formatd
+           ata\Dgen.inc
+ 266  * -----------------------------------------------------
+ 267  * XLS2GMS 2.8      24.4.6 r52609 Released Jun 26, 2015 VS8 x86 32bit/MS Wi
+      ndows
+ 268  * Erwin Kalvelagen, GAMS Development Corp.
+ 269  * -----------------------------------------------------
+ 270  * Application: Microsoft Excel
+ 271  * Version:     16.0
+ 272  * Workbook:    C:\Users\chengzi\Documents\HoHai\windR\project3like\distflo
+      w2\rawdata.xls
+ 273  * Sheet:       gen
+ 274  * Range:       $A$1:$V$2
+ 275  * -----------------------------------------------------
+ 276       bus  Pg   Qg   Qmax Qmin Vg   mBase status Pmax Pmin Pc1  Pc2  Qc1min
+       Qc1max Qc2min Qc2max ramp_agc ramp_10 ramp_30 ramp_q apf
+ 277  gen1 1    0    0    10   -10  1    100   1      10   0    0    0    0     
+       0      0      0      0        0       0       0      0
+ 278  * -----------------------------------------------------
+ 279  ;
+ 280   
+ 281   
+ 282   
+ 283  /*===========计算标幺值==========*/
+ 284  *display Dbus,Dgen,Dbch;
+ 285  parameter SB '基准功率MVA' /1/,UB '基准电压kV'/12.66/,ZB '基准阻抗ohm';
+ 286  ZB=UB*UB/SB;
+ 287  *p.u.
+ 288  *Dbus(bus,'Pd')=Dbus(bus,'Pd')/SB;
+ 289  *Dbus(bus,'Qd')=Dbus(bus,'Qd')/SB;
+ 290   
+ 291  Dgen(gen,'Pmax')=Dgen(gen,'Pmax')/SB;
+ 292  Dgen(gen,'Pmin')=Dgen(gen,'Pmin')/SB;
+ 293  Dgen(gen,'Qmax')=Dgen(gen,'Qmax')/SB;
+ 294  Dgen(gen,'Qmin')=Dgen(gen,'Qmin')/SB;
+ 295   
+ 296  *Dbch(bch,'r')=Dbch(bch,'r')/ZB;
+ 297  *Dbch(bch,'x')=Dbch(bch,'x')/ZB;
+ 298  **Gij,Bij
+ 299  parameters bchsG(bch),bchsB(bch);
+ 300   
+ 301  bchsG(bch)=Dbch(bch,"R")/(Dbch(bch,"R")**2+Dbch(bch,"X")**2);
+ 302  bchsB(bch)=-Dbch(bch,"X")/(Dbch(bch,"R")**2+Dbch(bch,"X")**2);
+ 303  parameters G0(i,j),B0(i,j);
+ 304  loop(i,
+ 305           loop(j,
+ 306           G0(i,j)=-sum(bch$( (Dbch(bch,'fbus') eq ord(i) and Dbch(bch,'tbus
+      ') eq ord(j)) or (Dbch(bch,'fbus') eq ord(j) and Dbch(bch,'tbus') eq ord(i
+      ))),bchsG(bch));
+ 307           B0(i,j)=-sum(bch$( (Dbch(bch,'fbus') eq ord(i) and Dbch(bch,'tbus
+      ') eq ord(j)) or (Dbch(bch,'fbus') eq ord(j) and Dbch(bch,'tbus') eq ord(i
+      ))),bchsB(bch));
+ 308   
+ 309           );
+ 310   
+ 311   
+ 312           G0(i,i)=sum(bch$((Dbch(bch,'fbus') eq ord(i)) or (Dbch(bch,'tbus'
+      ) eq ord(i))),bchsG(bch));
+ 313           B0(i,i)=sum(bch$((Dbch(bch,'fbus') eq ord(i)) or (Dbch(bch,'tbus'
+      ) eq ord(i))),bchsB(bch))+0.5*sum(bch$((Dbch(bch,'fbus') eq ord(i)) or (Db
+      ch(bch,'tbus') eq ord(i))),Dbch(bch,'b'));
+ 314   
+ 315   
+ 316  )
+ 317  display G0,B0;
+ 318  parameter Bij(i,j),Gij(i,j);
+ 319  Bij(i,j)=B0(i,j);Gij(i,j)=G0(i,j);
+ 320   
+ 321  display Gij,Bij;
+ 322   
+ 323   
+ 324   
+ 325   
+ 326  *1 Distflow 最优潮流模型
+ 327  /*=============定义变量=========*/
+ 328   
+ 329  variable Seta(bus),Pg(gen),Qg(gen),Pij(bch),Qij(bch),theta(bch),P(i),Q(i);
+ 330  Pg.up(gen)=Dgen(gen,'Pmax');Pg.lo(gen)=Dgen(gen,'Pmin');
+ 331  Qg.up(gen)=Dgen(gen,'Qmax');Qg.lo(gen)=Dgen(gen,'Qmin');
+ 332  Seta.fx('bus1')=0;
+ 333  *V.l(bus)=1;Seta.l(bus)=1;
+ 334  *V.up(bus)=1.1;V.lo(bus)=0.9;
+ 335  variable cost,U(i) 'V^2',lij(bch) 'Iij^2';
+ 336  U.up(bus)=1.1*1.1;U.lo(bus)=0.9*0.9;
+ 337  U.l(bus)=1;
+ 338  *variable V(bus),Iij(bch);
+ 339  /*=============方程=============*/
+ 340   
+ 341  **1交流最优潮流
+ 342  *equations equP(j),equQ(j);
+ 343  *equP(i)..    sum(gen$(Dgen(gen,'bus') eq ord(i)),Pg(gen))-Dbus(i,"Pd")=E=
+      V(i)*sum(j,V(j)*(Gij(i,j)*cos(Seta(i)-Seta(j))+Bij(i,j)*sin(Seta(i)-Seta(j
+      ))));
+ 344  *equQ(i)..    sum(gen$(Dgen(gen,'bus') eq ord(i)),Qg(gen))-Dbus(i,"Qd")=E=
+      V(i)*sum(j,V(j)*(Gij(i,j)*sin(Seta(i)-Seta(j))-Bij(i,j)*cos(Seta(i)-Seta(j
+      ))));
+ 345   
+ 346  **2orgin distflow
+ 347  *equation  e1,e2;
+ 348  *e1(bch).. sum(i$(Dbch(bch,'fbus') eq ord(i)),V(i)*cos(seta(i)))-sum(j$(Db
+      ch(bch,'tbus') eq ord(j)),V(j)*cos(seta(j))) =E= Dbch(bch,'r')*Iij(bch)*co
+      s(theta(bch))-Dbch(bch,'x')*Iij(bch)*sin(theta(bch));
+ 349  *e2(bch).. sum(i$(Dbch(bch,'fbus') eq ord(i)),V(i)*sin(seta(i)))-sum(j$(Db
+      ch(bch,'tbus') eq ord(j)),V(j)*sin(seta(j))) =E= Dbch(bch,'r')*Iij(bch)*si
+      n(theta(bch))+Dbch(bch,'x')*Iij(bch)*cos(theta(bch));
+ 350   
+ 351  *equation  e3,e4;
+ 352  *e3(bch).. Pij(bch)=e= sum(i$(Dbch(bch,'fbus') eq ord(i)),V(i)*cos(seta(i)
+      ))*Iij(bch)*cos(theta(bch))+sum(i$(Dbch(bch,'fbus') eq ord(i)),V(i)*sin(se
+      ta(i)))*Iij(bch)*sin(theta(bch));
+ 353  *e4(bch).. Qij(bch)=e= sum(i$(Dbch(bch,'fbus') eq ord(i)),V(i)*sin(seta(i)
+      ))*Iij(bch)*cos(theta(bch))-sum(i$(Dbch(bch,'fbus') eq ord(i)),V(i)*cos(se
+      ta(i)))*Iij(bch)*sin(theta(bch));
+ 354   
+ 355  *equation e5,e6;
+ 356  *e5(j).. sum(gen$(Dgen(gen,'bus') eq ord(j)),Pg(gen))-Dbus(j,'Pd') =e= sum
+      (bch$(Dbch(bch,'fbus') eq ord(j)),Pij(bch))-sum(bch$(Dbch(bch,'tbus') eq o
+      rd(j)),Pij(bch)-Dbch(bch,'r')*sqr(Iij(bch)));
+ 357  *e6(j).. sum(gen$(Dgen(gen,'bus') eq ord(j)),Qg(gen))-Dbus(j,'Qd') =e= sum
+      (bch$(Dbch(bch,'fbus') eq ord(j)),Qij(bch))-sum(bch$(Dbch(bch,'tbus') eq o
+      rd(j)),Qij(bch)-Dbch(bch,'x')*sqr(Iij(bch)));
+ 358   
+ 359  **3 distflow optimized
+ 360  equation  e1;
+ 361  e1(bch)..  sum(j$(Dbch(bch,'tbus') eq ord(j)),U(j)) =E= sum(i$(Dbch(bch,'f
+      bus') eq ord(i)),U(i))-2*(Dbch(bch,'r')*Pij(bch)+Dbch(bch,'x')*Qij(bch))+(
+      sqr(Dbch(bch,'r'))+sqr(Dbch(bch,'x')))*lij(bch);
+ 362   
+ 363  equation  e3;
+ 364  e3(bch)..  sqr(2*Pij(bch))+sqr(2*Qij(bch))+sqr[lij(bch)-sum[i$(Dbch(bch,'f
+      bus') eq ord(i)),U(i)]] =L= sqr(lij(bch)+sum[i$(Dbch(bch,'fbus') eq ord(i)
+      ),U(i)]);
+ 365  *e3(bch).. sqr(Pij(bch))+sqr(Qij(bch)) =l= lij(bch)*sum(i$(Dbch(bch,'fbus'
+      ) eq ord(i)),U(i));
+ 366   
+ 367  equation e5,e6;
+ 368  e5(j).. sum(gen$(Dgen(gen,'bus') eq ord(j)),Pg(gen))-Dbus(j,'Pd') =e= sum(
+      bch$(Dbch(bch,'fbus') eq ord(j)),Pij(bch))-sum(bch$(Dbch(bch,'tbus') eq or
+      d(j)),Pij(bch)-Dbch(bch,'r')*lij(bch));
+ 369  e6(j).. sum(gen$(Dgen(gen,'bus') eq ord(j)),Qg(gen))-Dbus(j,'Qd') =e= sum(
+      bch$(Dbch(bch,'fbus') eq ord(j)),Qij(bch))-sum(bch$(Dbch(bch,'tbus') eq or
+      d(j)),Qij(bch)-Dbch(bch,'x')*lij(bch));
+ 370   
+ 371   
+ 372   
+ 373  equation e99;
+ 374  e99.. cost =e= 20*sum(gen,Pg(gen));
+ 375   
+ 376  model     OPF41 /all/;
+ 377  solve     OPF41 use QCP min cost;
+ 378  *execute_unload "B.gdx" Bij;
+ 379  *execute 'gdxxrw.exe B.gdx Par=Bij';
+ 380  parameter voltage(bus);
+ 381  voltage(i)=sqrt(U.l(i));
+ 382  display voltage;
+ 383   
+ 384   
+ 385   
+ 386   
+ 387   
+ 388   
+ 389   
+GAMS 24.4.6  r52609 Released Jun 26, 2015 WEX-WEI x86 64bit/MS Windows 04/21/23 19:16:42 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Include File Summary
+
+
+   SEQ   GLOBAL TYPE      PARENT   LOCAL  FILENAME
+
+     1        1 INPUT          0       0  C:\Users\chengzi\Documents\HoHai\windR
+                                          \project3like\distflow2\distflow2.gms
+     2        6 INCLUDE        1       6  .C:\Users\chengzi\Documents\HoHai\wind
+                                           R\project3like\distflow2\formatdata\b
+                                           usi.inc
+     3       53 INCLUDE        1       9  .C:\Users\chengzi\Documents\HoHai\wind
+                                           R\project3like\distflow2\formatdata\b
+                                           usitem.inc
+     4       68 INCLUDE        1      12  .C:\Users\chengzi\Documents\HoHai\wind
+                                           R\project3like\distflow2\formatdata\b
+                                           chi.inc
+     5      119 INCLUDE        1      15  .C:\Users\chengzi\Documents\HoHai\wind
+                                           R\project3like\distflow2\formatdata\b
+                                           chitem.inc
+     6      134 INCLUDE        1      18  .C:\Users\chengzi\Documents\HoHai\wind
+                                           R\project3like\distflow2\formatdata\g
+                                           eni.inc
+     7      149 INCLUDE        1      21  .C:\Users\chengzi\Documents\HoHai\wind
+                                           R\project3like\distflow2\formatdata\g
+                                           enitem.inc
+     8      167 INCLUDE        1      27  .C:\Users\chengzi\Documents\HoHai\wind
+                                           R\project3like\distflow2\formatdata\D
+                                           bus.inc
+     9      214 INCLUDE        1      29  .C:\Users\chengzi\Documents\HoHai\wind
+                                           R\project3like\distflow2\formatdata\D
+                                           bch.inc
+    10      265 INCLUDE        1      31  .C:\Users\chengzi\Documents\HoHai\wind
+                                           R\project3like\distflow2\formatdata\D
+                                           gen.inc
+
+
+COMPILATION TIME     =        0.000 SECONDS      3 MB  24.4.6 r52609 WEX-WEI
+GAMS 24.4.6  r52609 Released Jun 26, 2015 WEX-WEI x86 64bit/MS Windows 04/21/23 19:16:42 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----    317 PARAMETER G0  
+
+             bus1        bus2        bus3        bus4        bus5        bus6
+
+bus1     1379.797   -1379.797
+bus2    -1379.797    2149.437    -258.137
+bus3                 -258.137     848.018    -347.721
+bus4                             -347.721     681.658    -333.937
+bus5                                         -333.937     446.071    -112.134
+bus6                                                     -112.134     810.811
+bus7                                                                  -71.786
+bus19                -511.502
+bus23                            -242.160
+bus26                                                                -626.890
+
+    +        bus7        bus8        bus9       bus10       bus11       bus12
+
+bus6      -71.786
+bus7      133.365     -61.579
+bus8      -61.579     204.280    -102.632
+bus9                 -102.632     244.884    -102.183
+bus10                            -102.183     837.087    -734.905
+bus11                                        -734.905    1120.798    -385.894
+bus12                                                    -385.894     493.398
+bus13                                                                 -67.435
+bus15                             -40.069
+bus21                 -40.069
+bus22                                                                 -40.069
+
+    +       bus13       bus14       bus15       bus16       bus17       bus18
+
+bus9                              -40.069
+bus12     -67.435
+bus13     175.731    -108.296
+bus14    -108.296     259.621    -151.325
+bus15                -151.325     331.459    -140.065
+bus16                            -140.065     184.750     -44.685
+bus17                                         -44.685     180.270    -135.585
+bus18                                                    -135.585     295.861
+bus33                                                                -160.276
+
+    +       bus19       bus20       bus21       bus22       bus23       bus24
+
+bus2     -511.502
+bus3                                                     -242.160
+bus8                              -40.069
+bus12                                         -40.069
+bus19     570.308     -58.806
+bus20     -58.806     224.312    -165.507
+bus21                -165.507     287.845     -82.269
+bus22                             -82.269     122.338
+bus23                                                     352.093    -109.933
+bus24                                                    -109.933     220.882
+bus25                                                                -110.948
+
+    +       bus25       bus26       bus27       bus28       bus29       bus30
+
+bus6                 -626.890
+bus24    -110.948
+bus25     271.224                                        -160.276
+bus26                1074.745    -447.855
+bus27                -447.855     533.007     -85.152
+bus28                             -85.152     198.458    -113.305
+bus29    -160.276                            -113.305     524.337    -250.756
+bus30                                                    -250.756     333.967
+bus31                                                                 -83.211
+
+    +       bus31       bus32       bus33
+
+bus18                            -160.276
+bus30     -83.211
+bus31     302.074    -218.863
+bus32    -218.863     356.395    -137.531
+bus33                -137.531     297.807
+
+
+----    317 PARAMETER B0  
+
+             bus1        bus2        bus3        bus4        bus5        bus6
+
+bus1     -703.367     703.367
+bus2      703.367   -1322.955     131.477
+bus3                  131.477    -474.033     177.091
+bus4                              177.091    -347.170     170.079
+bus5                                          170.079    -266.879      96.800
+bus6                                                       96.800    -653.406
+bus7                                                                  237.293
+bus19                 488.110
+bus23                             165.465
+bus26                                                                 319.312
+
+    +        bus7        bus8        bus9       bus10       bus11       bus12
+
+bus6      237.293
+bus7     -281.735      44.441
+bus8       44.441    -158.246      73.736
+bus9                   73.736    -186.233      72.428
+bus10                              72.428    -315.403     242.975
+bus11                                         242.975    -370.575     127.601
+bus12                                                     127.601    -220.726
+bus13                                                                  53.057
+bus15                              40.069
+bus21                  40.069
+bus22                                                                  40.069
+
+    +       bus13       bus14       bus15       bus16       bus17       bus18
+
+bus9                               40.069
+bus12      53.057
+bus13    -195.605     142.548
+bus14     142.548    -277.230     134.682
+bus15                 134.682    -277.036     102.285
+bus16                             102.285    -161.946      59.661
+bus17                                          59.661    -165.980     106.319
+bus18                                                     106.319    -266.595
+bus33                                                                 160.276
+
+    +       bus19       bus20       bus21       bus22       bus23       bus24
+
+bus2      488.110
+bus3                                                      165.465
+bus8                               40.069
+bus12                                          40.069
+bus19    -541.099      52.988
+bus20      52.988    -246.342     193.354
+bus21                 193.354    -342.198     108.775
+bus22                             108.775    -148.844
+bus23                                                    -252.273      86.808
+bus24                                                      86.808    -173.623
+bus25                                                                  86.815
+
+    +       bus25       bus26       bus27       bus28       bus29       bus30
+
+bus6                  319.312
+bus24      86.815
+bus25    -247.090                                         160.276
+bus26                -547.337     228.025
+bus27                 228.025    -303.102      75.077
+bus28                              75.077    -173.786      98.709
+bus29     160.276                              98.709    -386.710     127.725
+bus30                                                     127.725    -209.963
+bus31                                                                  82.238
+
+    +       bus31       bus32       bus33
+
+bus18                             160.276
+bus30      82.238
+bus31    -337.331     255.094
+bus32     255.094    -468.933     213.839
+bus33                 213.839    -374.115
+
+
+----    321 PARAMETER Gij  
+
+             bus1        bus2        bus3        bus4        bus5        bus6
+
+bus1     1379.797   -1379.797
+bus2    -1379.797    2149.437    -258.137
+bus3                 -258.137     848.018    -347.721
+bus4                             -347.721     681.658    -333.937
+bus5                                         -333.937     446.071    -112.134
+bus6                                                     -112.134     810.811
+bus7                                                                  -71.786
+bus19                -511.502
+bus23                            -242.160
+bus26                                                                -626.890
+
+    +        bus7        bus8        bus9       bus10       bus11       bus12
+
+bus6      -71.786
+bus7      133.365     -61.579
+bus8      -61.579     204.280    -102.632
+bus9                 -102.632     244.884    -102.183
+bus10                            -102.183     837.087    -734.905
+bus11                                        -734.905    1120.798    -385.894
+bus12                                                    -385.894     493.398
+bus13                                                                 -67.435
+bus15                             -40.069
+bus21                 -40.069
+bus22                                                                 -40.069
+
+    +       bus13       bus14       bus15       bus16       bus17       bus18
+
+bus9                              -40.069
+bus12     -67.435
+bus13     175.731    -108.296
+bus14    -108.296     259.621    -151.325
+bus15                -151.325     331.459    -140.065
+bus16                            -140.065     184.750     -44.685
+bus17                                         -44.685     180.270    -135.585
+bus18                                                    -135.585     295.861
+bus33                                                                -160.276
+
+    +       bus19       bus20       bus21       bus22       bus23       bus24
+
+bus2     -511.502
+bus3                                                     -242.160
+bus8                              -40.069
+bus12                                         -40.069
+bus19     570.308     -58.806
+bus20     -58.806     224.312    -165.507
+bus21                -165.507     287.845     -82.269
+bus22                             -82.269     122.338
+bus23                                                     352.093    -109.933
+bus24                                                    -109.933     220.882
+bus25                                                                -110.948
+
+    +       bus25       bus26       bus27       bus28       bus29       bus30
+
+bus6                 -626.890
+bus24    -110.948
+bus25     271.224                                        -160.276
+bus26                1074.745    -447.855
+bus27                -447.855     533.007     -85.152
+bus28                             -85.152     198.458    -113.305
+bus29    -160.276                            -113.305     524.337    -250.756
+bus30                                                    -250.756     333.967
+bus31                                                                 -83.211
+
+    +       bus31       bus32       bus33
+
+bus18                            -160.276
+bus30     -83.211
+bus31     302.074    -218.863
+bus32    -218.863     356.395    -137.531
+bus33                -137.531     297.807
+
+
+----    321 PARAMETER Bij  
+
+             bus1        bus2        bus3        bus4        bus5        bus6
+
+bus1     -703.367     703.367
+bus2      703.367   -1322.955     131.477
+bus3                  131.477    -474.033     177.091
+bus4                              177.091    -347.170     170.079
+bus5                                          170.079    -266.879      96.800
+bus6                                                       96.800    -653.406
+bus7                                                                  237.293
+bus19                 488.110
+bus23                             165.465
+bus26                                                                 319.312
+
+    +        bus7        bus8        bus9       bus10       bus11       bus12
+
+bus6      237.293
+bus7     -281.735      44.441
+bus8       44.441    -158.246      73.736
+bus9                   73.736    -186.233      72.428
+bus10                              72.428    -315.403     242.975
+bus11                                         242.975    -370.575     127.601
+bus12                                                     127.601    -220.726
+bus13                                                                  53.057
+bus15                              40.069
+bus21                  40.069
+bus22                                                                  40.069
+
+    +       bus13       bus14       bus15       bus16       bus17       bus18
+
+bus9                               40.069
+bus12      53.057
+bus13    -195.605     142.548
+bus14     142.548    -277.230     134.682
+bus15                 134.682    -277.036     102.285
+bus16                             102.285    -161.946      59.661
+bus17                                          59.661    -165.980     106.319
+bus18                                                     106.319    -266.595
+bus33                                                                 160.276
+
+    +       bus19       bus20       bus21       bus22       bus23       bus24
+
+bus2      488.110
+bus3                                                      165.465
+bus8                               40.069
+bus12                                          40.069
+bus19    -541.099      52.988
+bus20      52.988    -246.342     193.354
+bus21                 193.354    -342.198     108.775
+bus22                             108.775    -148.844
+bus23                                                    -252.273      86.808
+bus24                                                      86.808    -173.623
+bus25                                                                  86.815
+
+    +       bus25       bus26       bus27       bus28       bus29       bus30
+
+bus6                  319.312
+bus24      86.815
+bus25    -247.090                                         160.276
+bus26                -547.337     228.025
+bus27                 228.025    -303.102      75.077
+bus28                              75.077    -173.786      98.709
+bus29     160.276                              98.709    -386.710     127.725
+bus30                                                     127.725    -209.963
+bus31                                                                  82.238
+
+    +       bus31       bus32       bus33
+
+bus18                             160.276
+bus30      82.238
+bus31    -337.331     255.094
+bus32     255.094    -468.933     213.839
+bus33                 213.839    -374.115
+
+GAMS 24.4.6  r52609 Released Jun 26, 2015 WEX-WEI x86 64bit/MS Windows 04/21/23 19:16:42 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE OPF41 Using QCP From line 377
+
+
+---- e1  =E=  
+
+e1(bch1)..  0.00115051823234479*Pij(bch1) + 0.000586489771368818*Qij(bch1)
+     
+      - U(bus1) + U(bus2) - 4.16915613719505E-7*lij(bch1) =E= 0 ; (LHS = 0)
+     
+e1(bch2)..  0.00615190334648568*Pij(bch2) + 0.00313335279980234*Qij(bch2)
+     
+      - U(bus2) + U(bus3) - 1.19159536381327E-5*lij(bch2) =E= 0 ; (LHS = 0)
+     
+e1(bch3)..  0.0045671331132125*Pij(bch3) + 0.00232599347623718*Qij(bch3)
+     
+      - U(bus3) + U(bus4) - 6.56723763132501E-6*lij(bch3) =E= 0 ; (LHS = 0)
+     
+REMAINING 34 ENTRIES SKIPPED
+
+
+---- e3  =L=  
+
+e3(bch1)..  (0)*Pij(bch1) + (0)*Qij(bch1) + (0)*U(bus1) - (4)*lij(bch1) =L= 0 ;
+     
+      (LHS = 0)
+     
+e3(bch2)..  (0)*Pij(bch2) + (0)*Qij(bch2) + (0)*U(bus2) - (4)*lij(bch2) =L= 0 ;
+     
+      (LHS = 0)
+     
+e3(bch3)..  (0)*Pij(bch3) + (0)*Qij(bch3) + (0)*U(bus3) - (4)*lij(bch3) =L= 0 ;
+     
+      (LHS = 0)
+     
+REMAINING 34 ENTRIES SKIPPED
+
+
+---- e5  =E=  
+
+e5(bus1)..  Pg(gen1) - Pij(bch1) =E= 0 ; (LHS = 0)
+     
+e5(bus2)..  Pij(bch1) - Pij(bch2) - Pij(bch18) - 0.000575259116172393*lij(bch1)
+      =E= 0.1 ; (LHS = 0, INFES = 0.1 ****)
+     
+e5(bus3)..  Pij(bch2) - Pij(bch3) - Pij(bch22) - 0.00307595167324284*lij(bch2)
+      =E= 0.09 ; (LHS = 0, INFES = 0.09 ****)
+     
+REMAINING 30 ENTRIES SKIPPED
+
+
+---- e6  =E=  
+
+e6(bus1)..  Qg(gen1) - Qij(bch1) =E= 0 ; (LHS = 0)
+     
+e6(bus2)..  Qij(bch1) - Qij(bch2) - Qij(bch18) - 0.000293244885684409*lij(bch1)
+      =E= 0.06 ; (LHS = 0, INFES = 0.06 ****)
+     
+e6(bus3)..  Qij(bch2) - Qij(bch3) - Qij(bch22) - 0.00156667639990117*lij(bch2)
+      =E= 0.04 ; (LHS = 0, INFES = 0.04 ****)
+     
+REMAINING 30 ENTRIES SKIPPED
+
+
+---- e99  =E=  
+
+e99..  - 20*Pg(gen1) + cost =E= 0 ; (LHS = 0)
+     
+GAMS 24.4.6  r52609 Released Jun 26, 2015 WEX-WEI x86 64bit/MS Windows 04/21/23 19:16:42 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE OPF41 Using QCP From line 377
+
+
+---- Pg  
+
+Pg(gen1)
+                (.LO, .L, .UP, .M = 0, 0, 10, 0)
+        1       e5(bus1)
+      -20       e99
+
+
+---- Qg  
+
+Qg(gen1)
+                (.LO, .L, .UP, .M = -10, 0, 10, 0)
+        1       e6(bus1)
+
+
+---- Pij  
+
+Pij(bch1)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        0.0012  e1(bch1)
+       (0)      e3(bch1)
+       -1       e5(bus1)
+        1       e5(bus2)
+
+Pij(bch2)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        0.0062  e1(bch2)
+       (0)      e3(bch2)
+       -1       e5(bus2)
+        1       e5(bus3)
+
+Pij(bch3)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        0.0046  e1(bch3)
+       (0)      e3(bch3)
+       -1       e5(bus3)
+        1       e5(bus4)
+
+REMAINING 34 ENTRIES SKIPPED
+
+---- Qij  
+
+Qij(bch1)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        0.0006  e1(bch1)
+       (0)      e3(bch1)
+       -1       e6(bus1)
+        1       e6(bus2)
+
+Qij(bch2)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        0.0031  e1(bch2)
+       (0)      e3(bch2)
+       -1       e6(bus2)
+        1       e6(bus3)
+
+Qij(bch3)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        0.0023  e1(bch3)
+       (0)      e3(bch3)
+       -1       e6(bus3)
+        1       e6(bus4)
+
+REMAINING 34 ENTRIES SKIPPED
+
+---- cost  
+
+cost
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       e99
+
+
+---- U  V^2
+
+U(bus1)
+                (.LO, .L, .UP, .M = 0.81, 1, 1.21, 0)
+       -1       e1(bch1)
+       (0)      e3(bch1)
+
+U(bus2)
+                (.LO, .L, .UP, .M = 0.81, 1, 1.21, 0)
+        1       e1(bch1)
+       -1       e1(bch2)
+       -1       e1(bch18)
+       (0)      e3(bch2)
+       (0)      e3(bch18)
+
+U(bus3)
+                (.LO, .L, .UP, .M = 0.81, 1, 1.21, 0)
+        1       e1(bch2)
+       -1       e1(bch3)
+       -1       e1(bch22)
+       (0)      e3(bch3)
+       (0)      e3(bch22)
+
+REMAINING 30 ENTRIES SKIPPED
+
+---- lij  Iij^2
+
+lij(bch1)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+  -4.169156E-7  e1(bch1)
+      (-4)      e3(bch1)
+       -0.0006  e5(bus2)
+       -0.0003  e6(bus2)
+
+lij(bch2)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+  -1.191595E-5  e1(bch2)
+      (-4)      e3(bch2)
+       -0.0031  e5(bus3)
+       -0.0016  e6(bus3)
+
+lij(bch3)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+  -6.567238E-6  e1(bch3)
+      (-4)      e3(bch3)
+       -0.0023  e5(bus4)
+       -0.0012  e6(bus4)
+
+REMAINING 34 ENTRIES SKIPPED
+GAMS 24.4.6  r52609 Released Jun 26, 2015 WEX-WEI x86 64bit/MS Windows 04/21/23 19:16:42 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE OPF41 Using QCP From line 377
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           5     SINGLE EQUATIONS          141
+BLOCKS OF VARIABLES           7     SINGLE VARIABLES          147
+NON ZERO ELEMENTS           559     NON LINEAR N-Z            148
+DERIVATIVE POOL              20     CONSTANT POOL              16
+CODE LENGTH                 629
+
+
+GENERATION TIME      =        0.015 SECONDS      4 MB  24.4.6 r52609 WEX-WEI
+
+
+EXECUTION TIME       =        0.125 SECONDS      4 MB  24.4.6 r52609 WEX-WEI
+GAMS 24.4.6  r52609 Released Jun 26, 2015 WEX-WEI x86 64bit/MS Windows 04/21/23 19:16:42 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE OPF41 Using QCP From line 377
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   OPF41               OBJECTIVE  cost
+     TYPE    QCP                 DIRECTION  MINIMIZE
+     SOLVER  CONOPT              FROM LINE  377
+
+**** SOLVER STATUS     1 Normal Completion         
+**** MODEL STATUS      2 Locally Optimal           
+**** OBJECTIVE VALUE               76.3000
+
+ RESOURCE USAGE, LIMIT          0.031      1000.000
+ ITERATION COUNT, LIMIT        82    2000000000
+ EVALUATION ERRORS              0             0
+CONOPT 3         24.4.6 r52609 Released Jun 26, 2015 WEI x86 64bit/MS Windows 
+ 
+ 
+    C O N O P T 3   version 3.16F
+    Copyright (C)   ARKI Consulting and Development A/S
+                    Bagsvaerdvej 246 A
+                    DK-2880 Bagsvaerd, Denmark
+ 
+ 
+    The model has 147 variables and 141 constraints
+    with 559 Jacobian elements, 148 of which are nonlinear.
+    The Hessian of the Lagrangian has 142 elements on the diagonal,
+    37 elements below the diagonal, and 142 nonlinear variables.
+ 
+ ** Optimal solution. Reduced gradient less than tolerance.
+ 
+ 
+ CONOPT time Total                            0.024 seconds
+   of which: Function evaluations             0.002 =  8.3%
+             1st Derivative evaluations       0.000 =  0.0%
+             2nd Derivative evaluations       0.000 =  0.0%
+             Directional 2nd Derivative       0.000 =  0.0%
+ 
+
+---- EQU e1  
+
+         LOWER     LEVEL     UPPER    MARGINAL
+
+bch1       .         .         .       -1.600      
+bch2       .         .         .        0.274      
+bch3       .         .         .        0.491      
+bch4       .         .         .        0.545      
+bch5       .         .         .        0.650      
+bch6       .         .         .        0.467      
+bch7       .         .         .        0.472      
+bch8       .         .         .       -0.028      
+bch9       .         .         .        0.289      
+bch10      .         .         .        0.289      
+bch11      .         .         .        0.289      
+bch12      .         .         .       -0.290      
+bch13      .         .         .       -0.288      
+bch14      .         .         .       -0.287      
+bch15      .         .         .       -0.581      
+bch16      .         .         .       -0.573      
+bch17      .         .         .       -0.571      
+bch18      .         .         .       -1.440      
+bch19      .         .         .       -1.248      
+bch20      .         .         .       -1.203      
+bch21      .         .         .       -0.628      
+bch22      .         .         .       -0.051      
+bch23      .         .         .        0.134      
+bch24      .         .         .        0.224      
+bch25      .         .         .        0.195      
+bch26      .         .         .        0.207      
+bch27      .         .         .        0.242      
+bch28      .         .         .        0.265      
+bch29      .         .         .        0.550      
+bch30      .         .         .        0.568      
+bch31      .         .         .        0.570      
+bch32      .         .         .        0.570      
+bch33      .         .         .       -0.515      
+bch34      .         .         .       -0.300      
+bch35      .         .         .        0.628      
+bch36      .         .         .       -0.570      
+bch37      .         .         .        0.239      
+
+---- EQU e3  
+
+         LOWER     LEVEL     UPPER    MARGINAL
+
+bch1      -INF       .         .       -0.002      
+bch2      -INF       .         .       -0.013      
+bch3      -INF       .         .       -0.010      
+bch4      -INF       .         .       -0.010      
+bch5      -INF       .         .       -0.023      
+bch6      -INF       .         .       -0.006      
+bch7      -INF       .         .       -0.049      
+bch8      -INF       .         .       -0.030      
+bch9      -INF       .         .       -0.030      
+bch10     -INF       .         .       -0.006      
+bch11     -INF       .         .       -0.011      
+bch12     -INF       .         .       -0.043      
+bch13     -INF       .         .       -0.016      
+bch14     -INF       .         .       -0.017      
+bch15     -INF       .         .       -0.022      
+bch16     -INF       .         .       -0.039      
+bch17     -INF       .         .       -0.022      
+bch18     -INF       .         .       -0.004      
+bch19     -INF       .         .       -0.040      
+bch20     -INF       .         .       -0.011      
+bch21     -INF       .         .       -0.020      
+bch22     -INF       .         .       -0.012      
+bch23     -INF       .         .       -0.025      
+bch24     -INF       .         .       -0.026      
+bch25     -INF       .         .       -0.006      
+bch26     -INF       .         .       -0.008      
+bch27     -INF       .         .       -0.031      
+bch28     -INF       .         .       -0.024      
+bch29     -INF       .         .       -0.015      
+bch30     -INF       .         .       -0.029      
+bch31     -INF       .         .       -0.009      
+bch32     -INF       .         .       -0.011      
+bch33     -INF       .         .       -0.057      
+bch34     -INF       .         .       -0.059      
+bch35     -INF       .         .       -0.058      
+bch36     -INF       .         .       -0.015      
+bch37     -INF       .         .       -0.015      
+
+---- EQU e5  
+
+         LOWER     LEVEL     UPPER    MARGINAL
+
+bus1       .         .         .       20.000      
+bus2      0.100     0.100     0.100    20.075      
+bus3      0.090     0.090     0.090    20.343      
+bus4      0.120     0.120     0.120    20.432      
+bus5      0.060     0.060     0.060    20.516      
+bus6      0.060     0.060     0.060    20.689      
+bus7      0.200     0.200     0.200    20.703      
+bus8      0.200     0.200     0.200    20.753      
+bus9      0.060     0.060     0.060    20.832      
+bus10     0.060     0.060     0.060    20.838      
+bus11     0.045     0.045     0.045    20.836      
+bus12     0.060     0.060     0.060    20.829      
+bus13     0.060     0.060     0.060    20.915      
+bus14     0.120     0.120     0.120    20.940      
+bus15     0.060     0.060     0.060    20.950      
+bus16     0.060     0.060     0.060    20.996      
+bus17     0.060     0.060     0.060    21.058      
+bus18     0.090     0.090     0.090    21.083      
+bus19     0.090     0.090     0.090    20.116      
+bus20     0.090     0.090     0.090    20.475      
+bus21     0.090     0.090     0.090    20.566      
+bus22     0.090     0.090     0.090    20.645      
+bus23     0.090     0.090     0.090    20.472      
+bus24     0.420     0.420     0.420    20.714      
+bus25     0.420     0.420     0.420    20.874      
+bus26     0.060     0.060     0.060    20.713      
+bus27     0.060     0.060     0.060    20.745      
+bus28     0.060     0.060     0.060    20.847      
+bus29     0.120     0.120     0.120    20.914      
+bus30     0.200     0.200     0.200    20.983      
+bus31     0.150     0.150     0.150    21.071      
+bus32     0.210     0.210     0.210    21.088      
+bus33     0.060     0.060     0.060    21.089      
+
+---- EQU e6  
+
+         LOWER     LEVEL     UPPER    MARGINAL
+
+bus1       .         .         .         EPS       
+bus2      0.060     0.060     0.060     0.046      
+bus3      0.040     0.040     0.040     0.220      
+bus4      0.080     0.080     0.080     0.278      
+bus5      0.030     0.030     0.030     0.331      
+bus6      0.020     0.020     0.020     0.441      
+bus7      0.100     0.100     0.100     0.445      
+bus8      0.100     0.100     0.100     0.462      
+bus9      0.020     0.020     0.020     0.509      
+bus10     0.020     0.020     0.020     0.511      
+bus11     0.030     0.030     0.030     0.511      
+bus12     0.035     0.035     0.035     0.508      
+bus13     0.035     0.035     0.035     0.565      
+bus14     0.080     0.080     0.080     0.583      
+bus15     0.010     0.010     0.010     0.591      
+bus16     0.020     0.020     0.020     0.627      
+bus17     0.020     0.020     0.020     0.692      
+bus18     0.040     0.040     0.040     0.721      
+bus19     0.040     0.040     0.040     0.071      
+bus20     0.040     0.040     0.040     0.284      
+bus21     0.040     0.040     0.040     0.341      
+bus22     0.040     0.040     0.040     0.391      
+bus23     0.050     0.050     0.050     0.307      
+bus24     0.200     0.200     0.200     0.472      
+bus25     0.200     0.200     0.200     0.598      
+bus26     0.025     0.025     0.025     0.461      
+bus27     0.025     0.025     0.025     0.487      
+bus28     0.020     0.020     0.020     0.579      
+bus29     0.070     0.070     0.070     0.646      
+bus30     0.600     0.600     0.600     0.728      
+bus31     0.070     0.070     0.070     0.747      
+bus32     0.100     0.100     0.100     0.747      
+bus33     0.040     0.040     0.040     0.737      
+
+                       LOWER     LEVEL     UPPER    MARGINAL
+
+---- EQU e99             .         .         .        1.000      
+
+---- VAR Pg  
+
+        LOWER     LEVEL     UPPER    MARGINAL
+
+gen1      .        3.815    10.000      .         
+
+---- VAR Qg  
+
+        LOWER     LEVEL     UPPER    MARGINAL
+
+gen1   -10.000     2.372    10.000      .         
+
+---- VAR Pij  
+
+         LOWER     LEVEL     UPPER    MARGINAL
+
+bch1      -INF      3.815     +INF       .         
+bch2      -INF      2.580     +INF       .         
+bch3      -INF      1.158     +INF       .         
+bch4      -INF      1.034     +INF       .         
+bch5      -INF      0.971     +INF       .         
+bch6      -INF      0.353     +INF       .         
+bch7      -INF      0.153     +INF       .         
+bch8      -INF      0.333     +INF       .         
+bch9      -INF      0.038     +INF       .         
+bch10     -INF     -0.022     +INF       .         
+bch11     -INF     -0.067     +INF       .         
+bch12     -INF      0.237     +INF       .         
+bch13     -INF      0.177     +INF       .         
+bch14     -INF      0.056     +INF       .         
+bch15     -INF      0.230     +INF       .         
+bch16     -INF      0.170     +INF       .         
+bch17     -INF      0.109     +INF       .         
+bch18     -INF      1.126     +INF       .         
+bch19     -INF      1.034     +INF       .         
+bch20     -INF      0.933     +INF       .         
+bch21     -INF      0.458     +INF       .         
+bch22     -INF      1.308     +INF       .         
+bch23     -INF      1.212     +INF       .         
+bch24     -INF      0.782     +INF       .         
+bch25     -INF      0.553     +INF       .         
+bch26     -INF      0.492     +INF       .         
+bch27     -INF      0.432     +INF       .         
+bch28     -INF      0.370     +INF       .         
+bch29     -INF      0.604     +INF       .         
+bch30     -INF      0.402     +INF       .         
+bch31     -INF      0.251     +INF       .         
+bch32     -INF      0.041     +INF       .         
+bch33     -INF      0.383     +INF       .         
+bch34     -INF      0.234     +INF  2.5718E-8      
+bch35     -INF     -0.365     +INF       .         
+bch36     -INF      0.019     +INF       .         
+bch37     -INF      0.357     +INF       .         
+
+---- VAR Qij  
+
+         LOWER     LEVEL     UPPER    MARGINAL
+
+bch1      -INF      2.372     +INF       .         
+bch2      -INF      1.672     +INF       .         
+bch3      -INF      0.739     +INF       .         
+bch4      -INF      0.657     +INF       .         
+bch5      -INF      0.626     +INF       .         
+bch6      -INF      0.163     +INF       .         
+bch7      -INF      0.063     +INF       .         
+bch8      -INF      0.198     +INF       .         
+bch9      -INF      0.020     +INF       .         
+bch10     -INF  -1.839E-4     +INF       .         
+bch11     -INF     -0.030     +INF  -8.525E-9      
+bch12     -INF      0.155     +INF       .         
+bch13     -INF      0.120     +INF       .         
+bch14     -INF      0.039     +INF       .         
+bch15     -INF      0.186     +INF       .         
+bch16     -INF      0.166     +INF       .         
+bch17     -INF      0.145     +INF       .         
+bch18     -INF      0.635     +INF       .         
+bch19     -INF      0.594     +INF       .         
+bch20     -INF      0.544     +INF       .         
+bch21     -INF      0.264     +INF       .         
+bch22     -INF      0.880     +INF  3.0897E-8      
+bch23     -INF      0.826     +INF       .         
+bch24     -INF      0.618     +INF       .         
+bch25     -INF      0.437     +INF       .         
+bch26     -INF      0.412     +INF       .         
+bch27     -INF      0.387     +INF       .         
+bch28     -INF      0.365     +INF       .         
+bch29     -INF      0.707     +INF       .         
+bch30     -INF      0.106     +INF       .         
+bch31     -INF      0.035     +INF       .         
+bch32     -INF     -0.065     +INF       .         
+bch33     -INF      0.237     +INF  -2.681E-8      
+bch34     -INF      0.157     +INF       .         
+bch35     -INF     -0.220     +INF       .         
+bch36     -INF      0.105     +INF       .         
+bch37     -INF      0.414     +INF       .         
+
+                       LOWER     LEVEL     UPPER    MARGINAL
+
+---- VAR cost           -INF     76.300     +INF       .         
+
+---- VAR U  V^2
+
+         LOWER     LEVEL     UPPER    MARGINAL
+
+bus1      0.810     1.210     1.210    -1.759      
+bus2      0.810     1.204     1.210      .         
+bus3      0.810     1.183     1.210      .         
+bus4      0.810     1.176     1.210      .         
+bus5      0.810     1.170     1.210      .         
+bus6      0.810     1.154     1.210      .         
+bus7      0.810     1.152     1.210      .         
+bus8      0.810     1.148     1.210      .         
+bus9      0.810     1.142     1.210      .         
+bus10     0.810     1.141     1.210      .         
+bus11     0.810     1.141     1.210      .         
+bus12     0.810     1.142     1.210      .         
+bus13     0.810     1.135     1.210      .         
+bus14     0.810     1.133     1.210      .         
+bus15     0.810     1.132     1.210      .         
+bus16     0.810     1.129     1.210      .         
+bus17     0.810     1.122     1.210      .         
+bus18     0.810     1.120     1.210      .         
+bus19     0.810     1.201     1.210      .         
+bus20     0.810     1.171     1.210      .         
+bus21     0.810     1.163     1.210      .         
+bus22     0.810     1.156     1.210      .         
+bus23     0.810     1.172     1.210      .         
+bus24     0.810     1.152     1.210      .         
+bus25     0.810     1.138     1.210      .         
+bus26     0.810     1.152     1.210      .         
+bus27     0.810     1.150     1.210      .         
+bus28     0.810     1.140     1.210      .         
+bus29     0.810     1.133     1.210      .         
+bus30     0.810     1.127     1.210      .         
+bus31     0.810     1.121     1.210      .         
+bus32     0.810     1.119     1.210      .         
+bus33     0.810     1.120     1.210      .         
+
+---- VAR lij  Iij^2
+
+         LOWER     LEVEL     UPPER    MARGINAL
+
+bch1      -INF     16.677     +INF       .         
+bch2      -INF      7.848     +INF       .         
+bch3      -INF      1.595     +INF       .         
+bch4      -INF      1.277     +INF       .         
+bch5      -INF      1.141     +INF       .         
+bch6      -INF      0.131     +INF       .         
+bch7      -INF      0.024     +INF       .         
+bch8      -INF      0.131     +INF       .         
+bch9      -INF      0.002     +INF       .         
+bch10     -INF  4.4162E-4     +INF       .         
+bch11     -INF      0.005     +INF       .         
+bch12     -INF      0.070     +INF       .         
+bch13     -INF      0.040     +INF       .         
+bch14     -INF      0.004     +INF       .         
+bch15     -INF      0.077     +INF       .         
+bch16     -INF      0.050     +INF       .         
+bch17     -INF      0.029     +INF       .         
+bch18     -INF      1.387     +INF       .         
+bch19     -INF      1.184     +INF       .         
+bch20     -INF      0.996     +INF       .         
+bch21     -INF      0.240     +INF       .         
+bch22     -INF      2.100     +INF       .         
+bch23     -INF      1.834     +INF       .         
+bch24     -INF      0.862     +INF       .         
+bch25     -INF      0.430     +INF       .         
+bch26     -INF      0.358     +INF       .         
+bch27     -INF      0.292     +INF       .         
+bch28     -INF      0.237     +INF       .         
+bch29     -INF      0.764     +INF       .         
+bch30     -INF      0.153     +INF  -4.174E-9      
+bch31     -INF      0.057     +INF       .         
+bch32     -INF      0.005     +INF       .         
+bch33     -INF      0.174     +INF       .         
+bch34     -INF      0.070     +INF       .         
+bch35     -INF      0.159     +INF       .         
+bch36     -INF      0.010     +INF       .         
+bch37     -INF      0.263     +INF       .         
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+                             0     ERRORS
+GAMS 24.4.6  r52609 Released Jun 26, 2015 WEX-WEI x86 64bit/MS Windows 04/21/23 19:16:42 Page 8
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----    382 PARAMETER voltage  
+
+bus1  1.100,    bus2  1.097,    bus3  1.088,    bus4  1.085,    bus5  1.082
+bus6  1.074,    bus7  1.073,    bus8  1.071,    bus9  1.069,    bus10 1.068
+bus11 1.068,    bus12 1.068,    bus13 1.065,    bus14 1.064,    bus15 1.064
+bus16 1.062,    bus17 1.059,    bus18 1.059,    bus19 1.096,    bus20 1.082
+bus21 1.079,    bus22 1.075,    bus23 1.083,    bus24 1.073,    bus25 1.067
+bus26 1.073,    bus27 1.072,    bus28 1.068,    bus29 1.064,    bus30 1.061
+bus31 1.059,    bus32 1.058,    bus33 1.058
+
+
+
+EXECUTION TIME       =        0.000 SECONDS      3 MB  24.4.6 r52609 WEX-WEI
+
+
+USER: Small MUD - 5 User License                     S181221:0542AO-WIN
+      Hohai University, College of Energy and Electrical EngineeDC11740
+      License for teaching and research at degree granting institutions
+
+
+**** FILE SUMMARY
+
+Input      C:\Users\chengzi\Documents\HoHai\windR\project3like\distflow2\distflo
+           w2.gms
+Output     C:\Users\chengzi\Documents\HoHai\windR\project3like\distflow2\distflo
+           w2.lst
